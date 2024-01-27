@@ -50,3 +50,22 @@ exports.updateDepartment = catchAsyncErrors(async (req, res, next) => {
       message:"updated successfully"
     });
   });
+
+
+  // Delete department --Admin
+exports.deleteDepartment = catchAsyncErrors(async (req, res, next) => {
+    const department = await Department.findById(req.params.id);
+  
+    if (!department) {
+      return next(
+        new ErrorHandler(`Department does not exist with Id: ${req.params.id}`, 400)
+      );
+    }
+  
+    await department.deleteOne()
+  
+    res.status(200).json({
+      success: true,
+      message: "Department Deleted Successfully",
+    });
+  });
