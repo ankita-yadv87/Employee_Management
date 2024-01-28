@@ -3,45 +3,50 @@ import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const initialState = {
-  isRegistered: false,
-  loading: false,
-  error: null,
+    isRegistered: false,
+    loading: false,
+    error: null,
+    data:null,
 };
 
 const signupSlice = createSlice({
-  name: 'signup',
-  initialState,
-  reducers: {
-    signupStart: (state) => {
-      state.loading = true;
-      state.error = null;
+    name: 'signup',
+    initialState,
+    reducers: {
+        signupStart: (state) => {
+            state.loading = true;
+            state.error = null;
+        },
+        signupSuccess: (state,action) => {
+            state.loading = false;
+            state.isRegistered = true;
+            state.data = action.payload;
+        },
+        signupFailure: (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+        },
     },
-    signupSuccess: (state) => {
-      state.loading = false;
-      state.isRegistered = true;
-    },
-    signupFailure: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
-  },
 });
 
 export const { signupStart, signupSuccess, signupFailure } = signupSlice.actions;
 
 // Async action using redux-thunk
 export const signupUser = (userData) => async (dispatch) => {
-  dispatch(signupStart());
+    console.log("signupaction", userData)
+    dispatch(signupStart());
 
-  try {
-    // Simulate an API call (replace with your actual API endpoint)
-    const response = await axios.post('/api/v1/signup', userData);
-    
-    // Assuming a successful signup, update state
-    dispatch(signupSuccess());
-  } catch (error) {
-    dispatch(signupFailure(error.message));
-  }
+    try {
+        // Simulate an API call (replace with your actual API endpoint)
+        const response = await axios.post('http://localhost:5000/api/v1/signup', userData);
+
+        console.log("response", response)
+        // Assuming a successful signup, update state
+        dispatch(signupSuccess(response.data));
+    } catch (error) {
+        console.log("Error", error)
+        dispatch(signupFailure(error.message));
+    }
 };
 
 export default signupSlice.reducer;
