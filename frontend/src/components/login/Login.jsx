@@ -1,12 +1,12 @@
 import React from 'react'
-import image from "../assets/img_avatar2.png"
+import image from "../../assets/img_avatar2.png"
 import "./login.css"
 
 const Login = () => {
     return (
         <>
 
-            <form action="action_page.php" method="post">
+            <form className='container' action="action_page.php" method="post">
                 <div className="imgcontainer">
                     <img src={image} alt="Avatar" className="avatar" />
                 </div>
@@ -21,7 +21,7 @@ const Login = () => {
                     <input type="password" placeholder="Enter Password" name="psw" required />
                     <br />
 
-                    <button type="submit" className='button'>Login</button>
+                    <button type="submit" className="button">Login</button>
                     {/* <label>
                         <input type="checkbox" checked="checked" name="remember" Remember me />
                     </label> */}

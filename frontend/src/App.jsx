@@ -2,8 +2,8 @@ import { useState } from 'react'
 import Header from './components/Header/Header'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from './components/Home';
-import Login from './components/Login';
-import SignUp from './components/SignUp';
+import Login from './components/login/Login';
+import SignUp from './components/signup/SignUp';
 import Employee from './components/Employee';
 import Department from './components/Department';
 

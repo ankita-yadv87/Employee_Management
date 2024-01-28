@@ -8,6 +8,8 @@
     position: fixed;
     width: 100%;
     top: 0;
+    display: flex; /* Use Flexbox */
+    justify-content:space-around
   }
   
   /* Style the links inside the navigation bar */
@@ -28,7 +30,7 @@
   
   /* Add a color to the active/current link */
   .topnav a.active {
-    background-color: #04AA6D;
+    background-color: #15adc5;
     color: white;
   }
   
