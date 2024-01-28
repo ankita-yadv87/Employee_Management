@@ -34,7 +34,7 @@ export const { employeeStart, employeeSuccess, employeeFailure } = employeeSlice
 export const getEmployee = () => async (dispatch) => {
     dispatch(employeeStart());
 
-    const access_token = localStorage.getItem('jwt_access_token') || '';
+    const access_token = localStorage.getItem('token') || '';
     axios.defaults.headers.common['Authorization'] = 'Bearer ' + access_token;
 
     return new Promise((resolve, reject) => {

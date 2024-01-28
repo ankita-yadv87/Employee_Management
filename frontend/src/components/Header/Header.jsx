@@ -23,8 +23,7 @@ const Header = () => {
             console.log("reslogout", res);
             
             if (res.success === true) {
-                dispatch(logoutSuccess());
-                localStorage.removeItem("jwt_access_token");
+                localStorage.removeItem("token");
                 navigate("/login")
             }
         } catch (error) {

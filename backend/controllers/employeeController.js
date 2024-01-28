@@ -116,8 +116,6 @@ exports.getAllEmployees = catchAsyncErrors(async (req, res, next) => {
     .search()
     .filter().pagination(resultPerPage);
 
-    console.log("apiFeature",apiFeature)
-
   let employee = await apiFeature.query;
 
   let filteredEmployeesCount = employee.length;

@@ -7,6 +7,7 @@ import Login from './components/login/Login';
 import SignUp from './components/signup/SignUp';
 import Employee from './components/Employee';
 import Department from './components/Department';
+import AllEmployee from './components/allEmployee/AllEmployee';
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/employees" element={<Employee />} />
           <Route path="/department" element={<Department />} />
+          <Route path="/all-employees" element={<AllEmployee/>} />
         </Routes>
       </Router>
     </>
