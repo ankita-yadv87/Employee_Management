@@ -1,7 +1,8 @@
-const ErrorHandler = require("../utils/errorhandler");
+const ErrorHandler = require("../services/errorhandler");
 const catchAsyncErrors = require("../middleware/catchAsyncError");
 const Employee = require("../models/employeeModel");
-const sendToken = require("../utils/jwtToken");
+const sendToken = require("../services/jwtToken");
+const ApiFeatures = require("../services/apifeatures");
 
 //employee signup
 exports.signUp = catchAsyncErrors(async (req, res, next) => {
@@ -106,11 +107,24 @@ exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
 
 // Get all Employee(admin)
 exports.getAllEmployees = catchAsyncErrors(async (req, res, next) => {
-  const employees = await Employee.find();
+  // const employees = await Employee.find();
+  console.log("REQ",req.query)
+  const resultPerPage = 8;
+  const employeeCount = await Employee.countDocuments();
+
+  const apiFeature = new ApiFeatures(Employee.find(), req.query)
+    .search()
+    .filter().pagination(resultPerPage);
+
+    console.log("apiFeature",apiFeature)
+
+  let employee = await apiFeature.query;
+
+  let filteredEmployeesCount = employee.length;
 
   res.status(200).json({
     success: true,
-    employees,
+    employee,
   });
 });
 
