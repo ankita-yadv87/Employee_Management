@@ -1,31 +1,36 @@
 import React from 'react'
+import image from "../assets/img_avatar2.png"
+import "./login.css"
 
 const Login = () => {
     return (
         <>
 
             <form action="action_page.php" method="post">
-                <div class="imgcontainer">
-                    <img src="img_avatar2.png" alt="Avatar" class="avatar" />
+                <div className="imgcontainer">
+                    <img src={image} alt="Avatar" className="avatar" />
                 </div>
+                <br />
 
-                <div class="container">
-                    <label for="uname"><b>Username</b></label>
+                <div className="container">
+                    <label htmlFor="uname"><b>Username</b></label>
                     <input type="text" placeholder="Enter Username" name="uname" required />
+                    <br /> <br />
 
-                    <label for="psw"><b>Password</b></label>
+                    <label htmlFor="psw"><b>Password</b></label>
                     <input type="password" placeholder="Enter Password" name="psw" required />
+                    <br />
 
-                    <button type="submit">Login</button>
-                    <label>
+                    <button type="submit" className='button'>Login</button>
+                    {/* <label>
                         <input type="checkbox" checked="checked" name="remember" Remember me />
-                    </label>
+                    </label> */}
                 </div>
 
-                <div class="container" style="background-color:#f1f1f1">
-                    <button type="button" class="cancelbtn">Cancel</button>
-                    <span class="psw">Forgot <a href="#">password?</a></span>
-                </div>
+                {/* <div className="container" style={{backgroundColor: "#f1f1f1"}}>
+                    <button type="button" className="cancelbtn">Cancel</button>
+                    <span className="psw">Forgot <a href="#">password?</a></span>
+                </div> */}
             </form>
 
         </>
