@@ -45,6 +45,9 @@ export const signupUser = (userData) => async (dispatch) => {
         dispatch(signupSuccess(response.data));
     } catch (error) {
         console.log("Error", error)
+        if(error.response.data.message){
+            alert(error.response.data.message)
+        }
         dispatch(signupFailure(error.message));
     }
 };

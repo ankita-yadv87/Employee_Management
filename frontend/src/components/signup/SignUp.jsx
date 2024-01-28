@@ -24,7 +24,7 @@ const SignUp = () => {
       "password": password,
       "location": location, 
       "department": department || null,
-      "role": role || employee
+      "role": role || "employee"
     }
     console.log("handlesignup", userData)
     dispatch(signupUser(userData));
@@ -65,7 +65,7 @@ const SignUp = () => {
           {/* <br /> */}
 
           <label htmlFor="role"><b>Role</b></label>
-          <input type="text" placeholder="Your Role" name="role" required onChange={(e) => setrole(e.target.value)} />
+          <input type="text" placeholder="Your Role" name="role" onChange={(e) => setrole(e.target.value)} />
 
 
           <label htmlFor="department"><b>Department</b></label>

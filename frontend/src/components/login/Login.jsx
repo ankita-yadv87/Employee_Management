@@ -25,6 +25,7 @@ const Login = () => {
         dispatch(loginSuccess(res));
         if (res.success == true) {
             navigate("/employees")
+            localStorage.setItem('jwt_access_token',res.token)
         }
         setemail("");
         setpassword("");
@@ -45,7 +46,7 @@ const Login = () => {
                     <br /> <br />
 
                     <label htmlFor="psw"><b>Password</b></label>
-                    <input type="password" placeholder="Enter Password" name="psw" onChange={(e) => setpassword(e.target.value)} />
+                    <input type="password" placeholder="Enter Password" name="psw" required onChange={(e) => setpassword(e.target.value)} />
                     <br />
 
                     <button type="submit" className="button" disabled={loginState.loading}>{loginState.loading ? 'Logging In...' : 'Login'}</button>
