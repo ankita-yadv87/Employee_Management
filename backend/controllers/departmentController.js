@@ -7,7 +7,7 @@ exports.createDepartment = catchAsyncErrors(async (req, res, next) => {
       
       const { name, manager } = req.body;
   
-      const emp = await department.create({
+      const emp = await Department.create({
         name,
         manager
       });

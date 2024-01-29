@@ -73,6 +73,7 @@ exports.logout = catchAsyncErrors(async (req, res, next) => {
 
 // Get Employee Detail
 exports.getEmployeeDetail = catchAsyncErrors(async (req, res, next) => {
+  console.log("req.user",req.user)
   const employee = await Employee.findById(req.user.id);
 
   res.status(200).json({

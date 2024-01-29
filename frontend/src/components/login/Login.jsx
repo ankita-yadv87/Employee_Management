@@ -25,7 +25,8 @@ const Login = () => {
         dispatch(loginSuccess(res));
         if (res.success == true) {
             navigate("/employees")
-            localStorage.setItem('jwt_access_token',res.token)
+            document.cookie = `token=${res.token}; path=/`;
+            localStorage.setItem('token',res.token)
         }
         setemail("");
         setpassword("");

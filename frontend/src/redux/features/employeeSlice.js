@@ -35,11 +35,16 @@ export const getEmployee = () => async (dispatch) => {
     dispatch(employeeStart());
 
     const access_token = localStorage.getItem('token') || '';
-    axios.defaults.headers.common['Authorization'] = 'Bearer ' + access_token;
+    const config = {
+        headers: {
+          "Authorization": `Bearer ${access_token}`,
+          "Content-Type": "application/json"
+        },
+      };
 
     return new Promise((resolve, reject) => {
         axios
-            .get('http://localhost:5000/api/v1/me')
+            .get(`http://localhost:5000/api/v1/me`,config)
             .then((response) => {
                 if (response.data) {
                     console.log("response",response)
@@ -49,8 +54,21 @@ export const getEmployee = () => async (dispatch) => {
                 }
             })
             .catch((error) => {
+                if (error.response) {
+
+                    if(error.response.data.message){
+                        alert(error.response.data.message)
+                    }
+                    console.error("Server responded with error status:", error.response.status);
+                    console.error("Error data:", error.response.data);
+                } else if (error.request) {
+                    console.error("No response received from server");
+                } else {
+                    console.error("Error setting up the request:", error.message);
+                }
+            
                 reject(error);
-                dispatch(loginFailure(error.message));
+                dispatch(employeeFailure(error.message));
             });
     });
 

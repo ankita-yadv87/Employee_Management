@@ -6,8 +6,10 @@ import Home from './components/Home';
 import Login from './components/login/Login';
 import SignUp from './components/signup/SignUp';
 import Employee from './components/Employee';
-import Department from './components/Department';
+import Department from './components/department/Department';
 import AllEmployee from './components/allEmployee/AllEmployee';
+import MyProfile from './components/myProfile/MyProfile';
+import CreateDepartment from './components/department/CreateDepartment';
 
 
 function App() {
@@ -24,6 +26,8 @@ function App() {
           <Route path="/employees" element={<Employee />} />
           <Route path="/department" element={<Department />} />
           <Route path="/all-employees" element={<AllEmployee/>} />
+          <Route path="/my-Profile" element={<MyProfile/>} />
+          <Route path="/create-department" element={<CreateDepartment/>} />
         </Routes>
       </Router>
     </>

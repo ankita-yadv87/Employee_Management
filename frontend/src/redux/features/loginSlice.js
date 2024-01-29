@@ -61,7 +61,7 @@ const loginSlice = createSlice({
 //     },
 // });
 
-export const { loginStart, loginSuccess, loginFailure, logoutStart, logoutSuccess, logoutFailure  } = loginSlice.actions;
+export const { loginStart, loginSuccess, loginFailure, logoutStart, logoutSuccess, logoutFailure } = loginSlice.actions;
 
 // Async action using redux-thunk
 export const loginUser = (credentials) => async (dispatch) => {
@@ -71,17 +71,29 @@ export const loginUser = (credentials) => async (dispatch) => {
             .post('http://localhost:5000/api/v1/login', credentials)
             .then((response) => {
                 if (response.data) {
-                    console.log("response",response)
+                    console.log("response", response)
                     resolve(response.data);
                 } else {
                     reject('Failed to Login');
                 }
             })
             .catch((error) => {
-                reject(error);
-                if(error.response.data.message){
-                    alert(error.response.data.message)
+                if (error.response) {
+
+                    if (error.response.data?.message) {
+                        alert(error.response.data.message)
+                    }
+                    console.error("Server responded with error status:", error.response.status);
+                    console.error("Error data:", error.response.data);
+                } else if (error.request) {
+                    // The request was made but no response was received
+                    console.error("No response received from server");
+                } else {
+                    // Something happened in setting up the request that triggered an Error
+                    console.error("Error setting up the request:", error.message);
                 }
+
+                reject(error);
                 dispatch(loginFailure(error.message));
             });
     });
@@ -98,7 +110,7 @@ export const logoutUser = () => async (dispatch) => {
             .get('http://localhost:5000/api/v1/logout')
             .then((response) => {
                 if (response.data) {
-                    console.log("response",response)
+                    console.log("response", response)
                     dispatch(logoutSuccess());
                     resolve(response.data);
                 } else {

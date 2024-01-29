@@ -1,0 +1,31 @@
+/* You can customize this stylesheet based on your design preferences */
+
+.department-list {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .department-list h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+  
+  .department-list ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .department-list li {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  .department-list li:hover {
+    background-color: #e0e0e0;
+    cursor: pointer;
+  }
+  
