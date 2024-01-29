@@ -29,3 +29,12 @@
     cursor: pointer;
   }
   
+  .delete-icon {
+    color: red;
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 20px; /* Adjust the font size as needed */
+  }
+
+  /* .icon-container {
+    margin-left: 10px; /* Adjust the margin as needed */
