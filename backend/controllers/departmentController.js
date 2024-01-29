@@ -7,13 +7,14 @@ exports.createDepartment = catchAsyncErrors(async (req, res, next) => {
       
       const { name, manager } = req.body;
   
-      const emp = await Department.create({
+      const dept = await Department.create({
         name,
         manager
       });
       
       res.status(201).json({
         success: true,
+        dept
       });
     } catch (error) {
       // Log the error or handle it appropriately
