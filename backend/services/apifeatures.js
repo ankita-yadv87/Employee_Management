@@ -47,6 +47,20 @@ class ApiFeatures {
 
     return this;
   }
+
+  sort() {
+    if (this.queryStr.sort) {
+      console.log("this.queryStr.sort",this.queryStr.sort)
+      const sortBy = this.queryStr.sort.split(',').join(' ');
+
+      this.query = this.query.sort(sortBy);
+    } else {
+      // Default sorting by name if no sort parameter is provided
+      this.query = this.query.sort('name');
+    }
+
+    return this;
+  }
   //const qucopy = this.querystr->it will not assign value..bcz its a refrence to that obj so if we change the value of qucopy it will automatically update this.querystr
 
   pagination(resultPerPage) {

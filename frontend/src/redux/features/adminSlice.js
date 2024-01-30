@@ -227,7 +227,8 @@ export const updateDepartment = (departmentId, updatedData) => async (dispatch) 
   return new Promise(async (resolve, reject) => {
     try {
       const response = await axios.put(`http://localhost:5000/api/v1/admin/department/${departmentId}`,updatedData, config);
-      dispatch(updateDepartmentSuccess(response.data));
+      dispatch(updateDepartmentSuccess(response.data.updatedData
+        ));
       console.log("response slice",response)
       resolve(response?.data);
     } catch (error) {

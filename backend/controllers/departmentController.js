@@ -40,7 +40,7 @@ exports.updateDepartment = catchAsyncErrors(async (req, res, next) => {
       manager: req.body.manager
     };
   
-    await Department.findByIdAndUpdate(req.params.id, newUserData, {
+   const updatedData = await Department.findByIdAndUpdate(req.params.id, newUserData, {
       new: true,
       runValidators: true,
       useFindAndModify: false,
@@ -48,7 +48,8 @@ exports.updateDepartment = catchAsyncErrors(async (req, res, next) => {
   
     res.status(200).json({
       success: true,
-      message:"updated successfully"
+      message:"updated successfully",
+      updatedData
     });
   });
 

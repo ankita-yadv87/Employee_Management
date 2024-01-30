@@ -15,7 +15,7 @@ const Department = () => {
   let departmentData = useSelector((state) => state.admin.departments);
   // console.log("department data", departmentData)
   const dispatch = useDispatch();
-  // const [allDepartment, setAllDepartment] = useState(departmentData || []);
+  const [allDepartment, setAllDepartment] = useState(departmentData || []);
   let navigate = useNavigate();
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isUpdateModalOpen, setUpdateIsModalOpen] = useState(false);
@@ -51,13 +51,15 @@ const Department = () => {
       alert('You are not authorized to access this resource.');
     }
     else {
-
-      const res = dispatch(fetchAllDepartments());
-      departmentData = res.department;
-      console.log("res-allemp", res)
-
+      getAllDepartments()
     }
   }, [isAuthenticated]);
+
+  const getAllDepartments = useCallback(async () => {
+    const res = await dispatch(fetchAllDepartments());
+    console.log("res-allemp", res)
+    setAllDepartment(res.department);
+  },[]);
 
 
 
@@ -75,6 +77,9 @@ const Department = () => {
 
     if (res.success == true) {
       alert(`Department with id ${departmentId} has been deleted successfully`);
+      setAllDepartment((prevState)=> prevState.filter(
+        (department) => department._id !== departmentId
+      ))
     }
   }, [dispatch]);
 
@@ -86,15 +91,19 @@ const Department = () => {
   //   }
   // };
 
+
   const handleCreateDeptSubmit = useCallback(async (deptData) => {
     console.log("handleCreateDeptSubmit", deptData)
     const res = await dispatch(addDepartment(deptData));
     console.log("departmentfor", res)
     if (res.success == true) {
       alert("Created successfully");
+      setAllDepartment((prevState)=> [...prevState, res.dept ])
     }
     closeModal('create-department');
   }, [dispatch, closeModal]);
+
+
 
   const handleUpdateDeptSubmit = useCallback(async (departmentData) => {
     console.log("handleUpdateDeptSubmit", departmentData, tempDeptID)
@@ -104,18 +113,24 @@ const Department = () => {
     if (res.success == true) {
       alert("Updated successfully");
       settempDeptID('')
+      console.log("Alldepatmnet",allDepartment)
+      setAllDepartment((prevState)=>prevState.map((d) =>
+      d._id === res.updatedData._id ? res.updatedData : d))
     }
     closeModal('update-department');
   }, [dispatch, tempDeptID, closeModal]);
 
+
   console.log("dept.jsx")
+  console.log("Alldepatmnet render",allDepartment)
+
 
   return (
     <>
       <div className="department-list">
         <h2>Department List</h2>
         <ul>
-          {departmentData?.map((department) => (
+          {allDepartment?.map((department) => (
             <>
               <li key={department._id}><strong>Department Name : {department.name}</strong><br />
                 Manager ID : {department.manager}<br />Department ID : {department._id}{'  '}<i className="fas fa-pen-square" onClick={(e) => { openModal('update-department'), settempDeptID(department._id); }}></i> <i className="fas fa-trash delete-icon" onClick={(e) => handleDeleteDepartment(department._id)}></i></li>
