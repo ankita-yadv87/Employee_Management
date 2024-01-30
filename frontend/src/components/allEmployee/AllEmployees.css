@@ -12,7 +12,7 @@
   }
   
   .employee-card {
-    background-color: #f0f0f0;
+    background-color: #94e1a8;
     border: 1px solid #ccc;
     border-radius: 8px;
     padding: 16px;
@@ -21,6 +21,7 @@
   }
   
   h1 {
+    margin-top: 5rem;
     color: #333;
   }
   
@@ -32,9 +33,26 @@
     margin: 8px 0;
     color: #555;
   }
-
   .filter-container {
     margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .filter-container label {
+    margin-right: 10px; /* Adjust the spacing between labels and input boxes */
+  }
+  
+  .filter-container input {
+    background-color: #c5d8dc;
+    margin-bottom: 0;
+    margin-right: 10px;
+  }
+  
+  .filter-container input::placeholder {
+    padding: 2px;
+    margin-left: 2px;
+    color: #000;
   }
   
   .filter-container button {
@@ -48,5 +66,7 @@
   
   .filter-container button:hover {
     opacity: 0.8;
-  } 
+  }
+  
+  
   
