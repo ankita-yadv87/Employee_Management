@@ -113,12 +113,14 @@ exports.getAllEmployees = catchAsyncErrors(async (req, res, next) => {
   const resultPerPage = 8;
   const employeeCount = await Employee.countDocuments();
 
-  const apiFeature = new ApiFeatures(Employee.find(), req.query)
+  let apiFeature = new ApiFeatures(Employee.find(), req.query)
     .search()
-    .filter().pagination(resultPerPage);
+    .filter()
+    .sort()
+    .pagination(resultPerPage);
+
 
   let employee = await apiFeature.query;
-
   let filteredEmployeesCount = employee.length;
 
   res.status(200).json({

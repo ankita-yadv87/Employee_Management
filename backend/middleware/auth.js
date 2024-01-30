@@ -7,7 +7,6 @@ exports.isAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
   // console.log("req.cookies",req.cookies)
   // const {token}  = req.cookies; //taking token from cookies
   const { authorization } = req.headers; // Take the token from headers
-   console.log("req.headers",req.headers)
 
   if (!authorization) {
     return next(new ErrorHandler("Please Login to access this resource", 401));
@@ -36,7 +35,7 @@ exports.isAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
 
 exports.authorizeRoles = (...roles) => {
   return (req, res, next) => {
-    console.log("REQ>USER",req.user.role, req.user)
+ 
     if (!roles.includes(req.user.role)) {
       return next(
         new ErrorHandler(

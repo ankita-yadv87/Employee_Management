@@ -25,11 +25,10 @@ class ApiFeatures {
   filter() {
     let queryCopy = { ...this.queryStr };
     //   Removing some fields for category
-    const removeFields = ["keyword", "page", "limit"];
+    const removeFields = ["keyword", "page", "limit", "sort"];
 
     removeFields.forEach((key) => delete queryCopy[key]);
 
-    console.log(queryCopy);
 
     // Filter For Location, Name and department
     
@@ -41,7 +40,7 @@ class ApiFeatures {
     });
 
     let queryStr = JSON.stringify(queryCopy);
-    console.log(queryStr);
+    console.log("queryStr=>",queryStr);
 
     this.query = this.query.find(JSON.parse(queryStr));
 
@@ -50,15 +49,22 @@ class ApiFeatures {
 
   sort() {
     if (this.queryStr.sort) {
-      console.log("this.queryStr.sort",this.queryStr.sort)
-      const sortBy = this.queryStr.sort.split(',').join(' ');
-
-      this.query = this.query.sort(sortBy);
+      console.log("Sort Query:", this.queryStr.sort);
+  
+      const sortFields = this.queryStr.sort.split(',');
+  
+      const sortObj = {};
+      sortFields.forEach((field) => {
+        const order = field.startsWith('-') ? -1 : 1;
+        const fieldName = field.replace(/^-/, '');
+        sortObj[fieldName] = order;
+      });
+  
+      this.query = this.query.sort(sortObj).collation({ locale: 'en', strength: 2 }); // Adding collation for case-insensitive sorting
     } else {
-      // Default sorting by name if no sort parameter is provided
-      this.query = this.query.sort('name');
+      this.query = this.query.sort({ name: 1 }).collation({ locale: 'en', strength: 2 }); // Default sorting by name if no sort parameter is provided
     }
-
+  
     return this;
   }
   //const qucopy = this.querystr->it will not assign value..bcz its a refrence to that obj so if we change the value of qucopy it will automatically update this.querystr
